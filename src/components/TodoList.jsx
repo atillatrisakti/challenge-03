@@ -32,7 +32,9 @@ function TodoList() {
             return (
               <div key={data.id}>
                 <ListGroup className="mt-3">
-                  <ListGroup.Item className="py-3">{data.task}</ListGroup.Item>
+                  <ListGroup.Item className="py-3">
+                    <strong>{data.task}</strong>
+                  </ListGroup.Item>
                 </ListGroup>
               </div>
             );

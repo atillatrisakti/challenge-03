@@ -2,8 +2,7 @@ import React from "react";
 import { Container, Row, Col, Button, InputGroup, Form } from "react-bootstrap";
 import TodoList from "../components/TodoList";
 import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { Search } from "react-bootstrap-icons";
 
 function Home() {
   return (
@@ -18,8 +17,12 @@ function Home() {
               <div>
                 <span>
                   <Form>
-                    <FontAwesomeIcon icon={faMagnifyingGlass} style={{ color: "#2462d6" }} />
-                    <Form.Control type="text" placeholder="Search Todo"></Form.Control>
+                    <InputGroup className="mb-2">
+                      <InputGroup.Text id="basic-addon1">
+                        <Search />
+                      </InputGroup.Text>
+                      <Form.Control placeholder="Search Todo" aria-label="Username" aria-describedby="basic-addon1" />
+                    </InputGroup>
                   </Form>
                 </span>
               </div>
@@ -43,26 +46,28 @@ function Home() {
         </Row>
       </Container>
 
-      <div className="mt-3">
-        <TodoList />
-      </div>
+      <Container className="square border rounded mt-5">
+        <div className="mt-3">
+          <TodoList />
+        </div>
 
-      <div>
-        <Container className="mt-4 pb-5 d-flex justify-content-center">
-          <Row>
-            <Col>
-              <Button variant="danger" style={{ width: "25rem", height: "3rem" }}>
-                Delete Done Tasks
-              </Button>
-            </Col>
-            <Col>
-              <Button variant="danger" style={{ width: "25rem", height: "3rem" }}>
-                Delete All Tasks
-              </Button>
-            </Col>
-          </Row>
-        </Container>
-      </div>
+        <div>
+          <Container className="mt-4 pb-5 d-flex justify-content-center">
+            <Row>
+              <Col>
+                <Button variant="danger" style={{ width: "25rem", height: "3rem" }}>
+                  Delete Done Tasks
+                </Button>
+              </Col>
+              <Col>
+                <Button variant="danger" style={{ width: "25rem", height: "3rem" }}>
+                  Delete All Tasks
+                </Button>
+              </Col>
+            </Row>
+          </Container>
+        </div>
+      </Container>
     </>
   );
 }
