@@ -46,26 +46,9 @@ function Home() {
         </Row>
       </Container>
 
-      <Container className="square border rounded mt-5">
+      <Container className=" mt-5 square border rounded">
         <div className="mt-3">
           <TodoList />
-        </div>
-
-        <div>
-          <Container className="mt-4 pb-5 d-flex justify-content-center">
-            <Row>
-              <Col>
-                <Button variant="danger" style={{ width: "25rem", height: "3rem" }}>
-                  Delete Done Tasks
-                </Button>
-              </Col>
-              <Col>
-                <Button variant="danger" style={{ width: "25rem", height: "3rem" }}>
-                  Delete All Tasks
-                </Button>
-              </Col>
-            </Row>
-          </Container>
         </div>
       </Container>
     </>
