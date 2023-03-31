@@ -4,7 +4,7 @@ import { FaPencilAlt } from "react-icons/fa";
 
 function ButtonEdit() {
   return (
-    <Button variant="primary" size="sm">
+    <Button variant="outline-primary" size="sm">
       <FaPencilAlt />
     </Button>
   );

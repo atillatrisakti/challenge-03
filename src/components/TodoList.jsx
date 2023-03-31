@@ -8,10 +8,10 @@ import ButtonEdit from "./ButtonUpdate/ButtonEdit";
 import ButtonDelete from "./ButtonUpdate/ButtonDelete";
 import ButtonDeleteDone from "./ButtonDeleteDone";
 import ButtonDeleteAll from "./ButtonDeleteAll";
+import Checklist from "./ButtonUpdate/Checklist";
 
 function TodoList({ search }) {
   const [todos, setTodos] = useState([]);
-
   const [type, setType] = useState("");
 
   useEffect(() => {
@@ -101,6 +101,7 @@ function TodoList({ search }) {
                           <Col>{data.task}</Col>
                           <Col className="d-flex justify-content-end">
                             <Stack direction="horizontal" gap={3}>
+                              <Checklist />
                               <ButtonEdit />
                               <ButtonDelete onclick={() => updateList("delete", data.id)} />
                             </Stack>
@@ -119,12 +120,11 @@ function TodoList({ search }) {
                     <Container className="square border rounded my-3 p-2">
                       <Row>
                         <Col>
-                          <p className={data.complete ? "complete" : null} onClick={() => updateList("done", data.id)}>
-                            {data.task}
-                          </p>
+                          <p className={data.complete ? "complete" : null}>{data.task}</p>
                         </Col>
                         <Col className="d-flex justify-content-end">
                           <Stack direction="horizontal" gap={3}>
+                            <Checklist onclick={() => updateList("done", data.id)} />
                             <ButtonEdit />
                             <ButtonDelete onclick={() => updateList("delete", data.id)} />
                           </Stack>
@@ -147,6 +147,7 @@ function TodoList({ search }) {
                           <Col>{data.task}</Col>
                           <Col className="d-flex justify-content-end">
                             <Stack direction="horizontal" gap={3}>
+                              <Checklist />
                               <ButtonEdit />
                               <ButtonDelete onclick={() => updateList("delete", data.id)} />
                             </Stack>
@@ -168,6 +169,7 @@ function TodoList({ search }) {
                           <Col>{data.task}</Col>
                           <Col className="d-flex justify-content-end">
                             <Stack direction="horizontal" gap={3}>
+                              <Checklist />
                               <ButtonEdit />
                               <ButtonDelete onclick={() => updateList("delete", data.id)} />
                             </Stack>
