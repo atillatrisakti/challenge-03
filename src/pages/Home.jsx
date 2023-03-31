@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container, Row, Col, Button, InputGroup, Form } from "react-bootstrap";
 import TodoList from "../components/TodoList";
 import { Link } from "react-router-dom";
 import { Search } from "react-bootstrap-icons";
 
 function Home() {
+  const [search, setSearch] = useState("");
+
   return (
     <>
       <div className="text-center">
@@ -21,7 +23,7 @@ function Home() {
                       <InputGroup.Text id="basic-addon1">
                         <Search />
                       </InputGroup.Text>
-                      <Form.Control placeholder="Search Todo" aria-label="Username" aria-describedby="basic-addon1" />
+                      <Form.Control placeholder="Search Todo" aria-label="Username" aria-describedby="basic-addon1" value={search} onChange={(e) => setSearch(e.target.value)} />
                     </InputGroup>
                   </Form>
                 </span>
@@ -48,7 +50,7 @@ function Home() {
 
       <Container className=" mt-5 square border rounded">
         <div className="mt-3">
-          <TodoList />
+          <TodoList search={search} />
         </div>
       </Container>
     </>

@@ -9,31 +9,50 @@ import ButtonDelete from "./ButtonUpdate/ButtonDelete";
 import ButtonDeleteDone from "./ButtonDeleteDone";
 import ButtonDeleteAll from "./ButtonDeleteAll";
 
-function TodoList() {
+function TodoList({ search }) {
   const [todos, setTodos] = useState([]);
+
+  const [type, setType] = useState("");
 
   useEffect(() => {
     setTodos(datas);
   }, []);
 
   const sortAll = () => {
-    setTodos(datas);
+    setType("");
   };
 
   const sortDone = () => {
-    const data = todos.filter((todo) => todo.complete === true);
-    setTodos(data);
-    console.log("Dasda");
+    setType("sortDone");
   };
 
   const sortTodo = () => {
-    const data = todos.filter((todo) => todo.complete === false);
-    setTodos(data);
+    setType("sortTodo");
   };
 
   const deleteDoneTask = () => {
     const donetask = todos.filter((todo) => !todo.complete);
     setTodos(donetask);
+  };
+
+  const deleteAllTask = () => {
+    setTodos([]);
+  };
+
+  const updateList = (type, id) => {
+    if (type === "done") {
+      let check = todos.map((todo) => {
+        if (todo.id === id) {
+          return { ...todo, complete: !todo.complete };
+        }
+        return todo;
+      });
+      setTodos(check);
+    }
+    if (type === "delete") {
+      let del = todos.filter((todo) => todo.id !== id);
+      setTodos(del);
+    }
   };
 
   return (
@@ -70,16 +89,44 @@ function TodoList() {
         <Row className="mx-auto">
           <Col>
             {todos &&
+              type === "sortTodo" &&
+              !search &&
+              todos
+                .filter((todo) => todo.complete === false)
+                .map((data) => {
+                  return (
+                    <div key={data.id}>
+                      <Container className="square border rounded my-3 p-2">
+                        <Row>
+                          <Col>{data.task}</Col>
+                          <Col className="d-flex justify-content-end">
+                            <Stack direction="horizontal" gap={3}>
+                              <ButtonEdit />
+                              <ButtonDelete onclick={() => updateList("delete", data.id)} />
+                            </Stack>
+                          </Col>
+                        </Row>
+                      </Container>
+                    </div>
+                  );
+                })}
+            {todos &&
+              type === "" &&
+              !search &&
               todos.map((data) => {
                 return (
                   <div key={data.id}>
                     <Container className="square border rounded my-3 p-2">
                       <Row>
-                        <Col>{data.task}</Col>
+                        <Col>
+                          <p className={data.complete ? "complete" : null} onClick={() => updateList("done", data.id)}>
+                            {data.task}
+                          </p>
+                        </Col>
                         <Col className="d-flex justify-content-end">
                           <Stack direction="horizontal" gap={3}>
                             <ButtonEdit />
-                            <ButtonDelete />
+                            <ButtonDelete onclick={() => updateList("delete", data.id)} />
                           </Stack>
                         </Col>
                       </Row>
@@ -87,6 +134,49 @@ function TodoList() {
                   </div>
                 );
               })}
+            {todos &&
+              type === "sortDone" &&
+              !search &&
+              todos
+                .filter((todo) => todo.complete === true)
+                .map((data) => {
+                  return (
+                    <div key={data.id}>
+                      <Container className="square border rounded my-3 p-2">
+                        <Row>
+                          <Col>{data.task}</Col>
+                          <Col className="d-flex justify-content-end">
+                            <Stack direction="horizontal" gap={3}>
+                              <ButtonEdit />
+                              <ButtonDelete onclick={() => updateList("delete", data.id)} />
+                            </Stack>
+                          </Col>
+                        </Row>
+                      </Container>
+                    </div>
+                  );
+                })}
+            {todos &&
+              search &&
+              todos
+                .filter((todo) => todo.task.toLowerCase().includes(search.toLowerCase()))
+                .map((data) => {
+                  return (
+                    <div key={data.id}>
+                      <Container className="square border rounded my-3 p-2">
+                        <Row>
+                          <Col>{data.task}</Col>
+                          <Col className="d-flex justify-content-end">
+                            <Stack direction="horizontal" gap={3}>
+                              <ButtonEdit />
+                              <ButtonDelete onclick={() => updateList("delete", data.id)} />
+                            </Stack>
+                          </Col>
+                        </Row>
+                      </Container>
+                    </div>
+                  );
+                })}
           </Col>
         </Row>
       </Container>
@@ -101,7 +191,11 @@ function TodoList() {
               />
             </Col>
             <Col>
-              <ButtonDeleteAll />
+              <ButtonDeleteAll
+                clickedDeleteAll={() => {
+                  deleteAllTask();
+                }}
+              />
             </Col>
           </Row>
         </Container>
